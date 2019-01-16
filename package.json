@@ -1,0 +1,28 @@
+{
+  "name": "study-dockerizing-a-node-api",
+  "version": "0.0.1",
+  "description": "A repository containing an article and example to start my docker studies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmalaquiasdev/study-dockerizing-a-node-api.git"
+  },
+  "keywords": [
+    "Docker",
+    "node",
+    "study",
+    "api"
+  ],
+  "author": "Mateus Malaquias",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mmalaquiasdev/study-dockerizing-a-node-api/issues"
+  },
+  "homepage": "https://github.com/mmalaquiasdev/study-dockerizing-a-node-api#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
