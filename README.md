@@ -80,6 +80,27 @@ app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 ```
 
+## Creating Docker ignore file
+
+Before creating a docker image it's intresting to make a file named .dockerignore in the root directory. When this file exists the CLI modifies the context to exclude files and directories that match patterns in it. This will help us avoid unnecessarily sending large or sensitive files and directories to the image when using ADD or COPY command.
+
+So create the file and edit it:
+
+```shell
+touch .dockerignore
+```
+
+```shell
+vim .dockerignore
+
+node_modules
+npm-debug.log
+```
+
+This will prevent your local modules and debug logs from being copied into your Docker image.
+
+
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
