@@ -88,11 +88,12 @@ So create the file and edit it:
 
 ```shell
 touch .dockerignore
+vim .dockerignore
 ```
 
-```shell
-vim .dockerignore
+Write the content above:
 
+```shell
 node_modules
 npm-debug.log
 ```
