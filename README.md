@@ -8,26 +8,26 @@ This guide assumes that you have a working Docker installation and a basic under
 
 We need create a directory to save all files of our project. So:
 
-```
+```shell
 mkdir study-dockerizing-a-node-api
 cd study-dockerizing-a-node-api
 ```
 
 After create the directory, we need a **package.json** to create a Node.js API:
 
-```
+```shell
 npm init
 ```
 
 After that install the express dependencie:
 
-```
+```shell
 npm i express --save
 ```
 
 Now we have a **package.json**:
 
-```
+```json
 {
   "name": "study-dockerizing-a-node-api",
   "version": "0.0.1",
@@ -63,7 +63,7 @@ Now we have a **package.json**:
 
 Now create a **index.js** file that defines a web app using the Express.js framework:
 
-```
+```javascript
 const express = require('express');
 
 const PORT = 8080;
@@ -79,3 +79,15 @@ app.listen(PORT, HOST);
 
 console.log(`Running on http://${HOST}:${PORT}`);
 ```
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Contributors
+
+See also the list of [contributors](https://github.com/mmalaquiasdev/study-dockerizing-a-node-api/graphs/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
