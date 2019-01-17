@@ -25,6 +25,12 @@ After that install the express dependencie:
 npm i express --save
 ```
 
+Edit and create a new script to start the node server in the **package.json**:
+
+```json
+"start": "node index.js",
+```
+
 Now we have a **package.json**:
 
 ```json
@@ -99,6 +105,16 @@ npm-debug.log
 ```
 
 This will prevent your local modules and debug logs from being copied into your Docker image.
+
+## Creating a Dockerfile
+
+A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. Using docker build users can create an automated build that executes several command-line instructions in succession.
+
+Create an empty file called Dockerfile:
+
+```shell
+touch Dockerfile
+```
 
 
 
