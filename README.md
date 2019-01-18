@@ -65,7 +65,7 @@ Now we have a **package.json**:
 }
 ```
 
-## Creating a sample API
+### Creating a sample API
 
 Now create a **index.js** file that defines a web app using the Express.js framework:
 
@@ -85,26 +85,6 @@ app.listen(PORT, HOST);
 
 console.log(`Running on http://${HOST}:${PORT}`);
 ```
-
-## Creating Docker ignore file
-
-Before creating a docker image it's intresting to make a file named .dockerignore in the root directory. When this file exists the CLI modifies the context to exclude files and directories that match patterns in it. This will help us avoid unnecessarily sending large or sensitive files and directories to the image when using ADD or COPY command.
-
-So create the file and edit it:
-
-```shell
-$ touch .dockerignore
-$ vim .dockerignore
-```
-
-Write the content above:
-
-```
-node_modules
-npm-debug.log
-```
-
-This will prevent your local modules and debug logs from being copied into your Docker image.
 
 ## Creating a Dockerfile
 
@@ -146,6 +126,8 @@ EXPOSE 8080
 CMD ["npm", "start"]
 ```
 
+[TL; DR Docker atrributes](https://github.com/mmalaquiasdev/quickstart-dockerizing-a-node-api/blob/master/docker-attributes.md)
+
 ## Building your image
 
 Go to the directory that has your Dockerfile and run the following command to build the Docker image.
@@ -179,6 +161,26 @@ $ curl -i localhost:49160
 You need see a simple Hello world message.
 
 I hope this tutorial helped you get up and running a simple Node.js application on Docker.
+
+##  BONUS: Creating Docker ignore file
+
+Before creating a docker image it's intresting to make a file named .dockerignore in the root directory. When this file exists the CLI modifies the context to exclude files and directories that match patterns in it. This will help us avoid unnecessarily sending large or sensitive files and directories to the image when using ADD or COPY command.
+
+So create the file and edit it:
+
+```shell
+$ touch .dockerignore
+$ vim .dockerignore
+```
+
+Write the content above:
+
+```
+node_modules
+npm-debug.log
+```
+
+This will prevent your local modules and debug logs from being copied into your Docker image.
 
 ## References
 
