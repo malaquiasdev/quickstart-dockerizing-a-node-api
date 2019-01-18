@@ -9,20 +9,20 @@ This guide assumes that you have a working Docker installation and a basic under
 We need create a directory to save all files of our project. So:
 
 ```shell
-mkdir study-dockerizing-a-node-api
-cd study-dockerizing-a-node-api
+$ mkdir study-dockerizing-a-node-api
+$ cd study-dockerizing-a-node-api
 ```
 
 After create the directory, we need a **package.json** to create a Node.js API:
 
 ```shell
-npm init
+$ npm init
 ```
 
 After that install the express dependencie:
 
 ```shell
-npm i express --save
+$ npm i express --save
 ```
 
 Edit and create a new script to start the node server in the **package.json**:
@@ -93,13 +93,13 @@ Before creating a docker image it's intresting to make a file named .dockerignor
 So create the file and edit it:
 
 ```shell
-touch .dockerignore
-vim .dockerignore
+$ touch .dockerignore
+$ vim .dockerignore
 ```
 
 Write the content above:
 
-```shell
+```
 node_modules
 npm-debug.log
 ```
@@ -113,13 +113,13 @@ A Dockerfile is a text document that contains all the commands a user could call
 Create an empty file called Dockerfile:
 
 ```shell
-touch Dockerfile
+$ touch Dockerfile
 ```
 
 Open this file with your favorite text editor. And lets go!
 
 ```shell
-vim Dockerfile
+$ vim Dockerfile
 ```
 
 ### FROM
@@ -214,7 +214,37 @@ CMD ["npm", "start"]
 
 ## Building your image
 
+Go to the directory that has your Dockerfile and run the following command to build the Docker image.
 
+```shell
+$ docker build -t <your username>/node-hello-world .
+```
+
+## Run the image
+
+Running your image with -d runs the container in detached mode, leaving the container running in the background. The -p flag redirects a public port to a private port inside the container.
+
+```shell
+$ docker run -p 8080:8080 -d <your username>/node-web-app
+```
+
+## Test
+
+Open your web browser or postman application and make a request to the URL above:
+
+```
+http://localhost:8080
+```
+
+Or use the curl application inside the terminal.
+
+```shell
+$ curl -i localhost:49160
+```
+
+You need see a simple Hello world message.
+
+I hope this tutorial helped you get up and running a simple Node.js application on Docker.
 
 ## References
 
