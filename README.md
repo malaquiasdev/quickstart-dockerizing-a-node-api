@@ -1,12 +1,12 @@
 # Quickstart to dockerizing a Node API
 
-The goal of this project is training how to get a Node.js application into a Docker container.
+The goal of this project is training you in how to get a Node.js application running into a Docker container.
 
 This guide assumes that you have a working Docker installation and a basic understanding of how a Node.js application is structured.
 
 ## Creating the Node.js app
 
-We need create a directory to save all files of our project. So:
+We need to create a directory to save all files of our project. So:
 
 ```shell
 $ mkdir study-dockerizing-a-node-api
@@ -19,7 +19,7 @@ After create the directory, we need a **package.json** to create a Node.js API:
 $ npm init
 ```
 
-After that install the express dependencie:
+After that install the express dependency:
 
 ```shell
 $ npm i express --save
@@ -88,7 +88,7 @@ console.log(`Running on http://${HOST}:${PORT}`);
 
 ## Creating a Dockerfile
 
-A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image. Using docker build users can create an automated build that executes several command-line instructions in succession.
+A Dockerfile is a text document that contains all the commands that a user could call on the command line to assemble an image. Using `docker build` users can create an automated build that executes several command-line instructions in succession.
 
 Create an empty file called Dockerfile:
 
@@ -102,13 +102,13 @@ Open this file with your favorite text editor. And lets go!
 $ vim Dockerfile
 ```
 
-Your Dockerfile should now look like this:
+Your Dockerfile should look like this:
 
 ```Dockerfile
 # Node runtime version
 FROM node:8
 
-# The api directory insede of the docker image
+# The api directory inside of the docker image
 WORKDIR /app
 
 # A wildcard is used to ensure both package.json AND package-lock.json are copied to the docker image
@@ -130,7 +130,7 @@ CMD ["npm", "start"]
 
 ## Building your image
 
-Go to the directory that has your Dockerfile and run the following command to build the Docker image.
+Go to the directory that has your Dockerfile and execute the following command to build the Docker image.
 
 ```shell
 $ docker build -t <your username>/node-hello-world .
@@ -138,7 +138,7 @@ $ docker build -t <your username>/node-hello-world .
 
 ## Run the image
 
-Running your image with -d runs the container in detached mode, leaving the container running in the background. The -p flag redirects a public port to a private port inside the container.
+Running your image with `-d` runs the container in `detached` mode, leaving the container running in the background. The `-p` flag redirects a public port to a private port inside the container.
 
 ```shell
 $ docker run -p 8080:8080 -d <your username>/node-web-app
@@ -158,9 +158,9 @@ Or use the curl application inside the terminal.
 $ curl -i localhost:49160
 ```
 
-You need see a simple Hello world message.
+You need to see a simple Hello world message.
 
-I hope this tutorial helped you get up and running a simple Node.js application on Docker.
+I hope this tutorial helped you get up  and running a simple Node.js application on Docker.
 
 ##  BONUS: Creating Docker ignore file
 
