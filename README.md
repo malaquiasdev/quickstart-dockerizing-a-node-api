@@ -170,6 +170,30 @@ So use this command to install the project dependencies.
 RUN npm install
 ```
 
+### EXPOSE
+
+The EXPOSE instruction informs Docker that the container listens on the specified network ports at runtime. You can specify whether the port listens on TCP or UDP, and the default is TCP if the protocol is not specified.
+
+The EXPOSE instruction does not actually publish the port. It functions as a type of documentation between the person who builds the image and the person who runs the container, about which ports are intended to be published. To actually publish the port when running the container, use the -p flag on docker run to publish and map one or more ports, or the -P flag to publish all exposed ports and map them to high-order ports.
+
+```Dockerfile
+EXPOSE 8080
+```
+
+### CMD
+
+The main purpose of a CMD is to provide defaults for an executing container. Here we will use the basic npm start.
+
+```Dockerfile
+CMD [ "npm", "start" ]
+```
+
+## References
+
+- [Dockerfile reference](https://docs.docker.com/engine/reference/builder/#dockerignore-file)
+- [Dockerizing a Node.js web app](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/)
+- [Trying Docker for the First Time 📖 Many Learnings!](https://www.youtube.com/watch?v=2tvbkCW4OIY)
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
