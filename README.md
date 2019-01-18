@@ -140,7 +140,35 @@ WORKDIR app
 
 If the WORKDIR doesn’t exist, it will be created a generic folder for us. And we can use this instruction in multiple times inside of our Dockerfile.
 
+### NPM
 
+Multiple tutorials in the internet show to us a command to install the NPM inside of our container, but this steps is not required anymore. This image comes with Node.js and NPM already installed so the next thing we need to do is to install your app dependencies using the npm binary.
+
+### COPY
+
+The COPY instruction copies new files or directories from <src> and adds them to the filesystem of the container at the path <dest>.
+  
+So we need copy the package.json AND package-lock.json, insed of our WORKDIR.
+
+```Dockerfile
+COPY package*.json ./
+```
+
+After that we use the copy instruction to copy our application source.
+
+```Dockerfile
+COPY . .
+```
+
+### RUN
+
+The RUN instruction will execute any commands in a new layer on top of the current image and commit the results. The resulting committed image will be used for the next step in the Dockerfile.
+
+So use this command to install the project dependencies.
+
+```Dockerfile
+RUN npm install
+```
 
 ## Contributing
 
