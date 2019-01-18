@@ -116,7 +116,29 @@ Create an empty file called Dockerfile:
 touch Dockerfile
 ```
 
+Open this file with your favorite text editor. And lets go!
 
+```shell
+vim Dockerfile
+```
+
+### FROM
+
+The first step is define what image we want to use to build our API. In this study i'm using the latest LTS (long term support) version 8 of node available from the Docker Hub.
+
+```Dockerfile
+FROM node:8
+```
+
+### WORKDIR
+
+We need create a directory inside of the container for hold our application code. For this will be using the struction **WORKDIR**.
+
+```Dockerfile
+WORKDIR app
+```
+
+If the WORKDIR doesn’t exist and we can use this instruction in multiple times inside of our Dockerfile.
 
 ## Contributing
 
