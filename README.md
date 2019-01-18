@@ -138,7 +138,9 @@ We need create a directory inside of the container for hold our application code
 WORKDIR app
 ```
 
-If the WORKDIR doesn’t exist and we can use this instruction in multiple times inside of our Dockerfile.
+If the WORKDIR doesn’t exist, it will be created a generic folder for us. And we can use this instruction in multiple times inside of our Dockerfile.
+
+
 
 ## Contributing
 
