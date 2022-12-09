@@ -24,6 +24,6 @@
   },
   "homepage": "https://github.com/mmalaquiasdev/study-dockerizing-a-node-api#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.17.3"
   }
 }
