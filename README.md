@@ -9,8 +9,8 @@ This guide assumes that you have a working Docker installation and a basic under
 We need to create a directory to save all files of our project. So:
 
 ```shell
-$ mkdir study-dockerizing-a-node-api
-$ cd study-dockerizing-a-node-api
+$ mkdir quickstart-dockerizing-a-node-api
+$ cd quickstart-dockerizing-a-node-api
 ```
 
 After create the directory, we need a **package.json** to create a Node.js API:
@@ -35,7 +35,7 @@ Now we have a **package.json**:
 
 ```json
 {
-  "name": "study-dockerizing-a-node-api",
+  "name": "quickstart-dockerizing-a-node-api",
   "version": "0.0.1",
   "description": "A repository containing an article and example to start my docker studies",
   "main": "index.js",
@@ -45,7 +45,7 @@ Now we have a **package.json**:
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mmalaquiasdev/study-dockerizing-a-node-api.git"
+    "url": "git+https://github.com/malaquiasdev/quickstart-dockerizing-a-node-api.git"
   },
   "keywords": [
     "Docker",
@@ -56,11 +56,11 @@ Now we have a **package.json**:
   "author": "Mateus Malaquias",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mmalaquiasdev/study-dockerizing-a-node-api/issues"
+    "url": "https://github.com/malaquiasdev/quickstart-dockerizing-a-node-api/issues"
   },
-  "homepage": "https://github.com/mmalaquiasdev/study-dockerizing-a-node-api#readme",
+  "homepage": "https://github.com/malaquiasdev/quickstart-dockerizing-a-node-api#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.19.2"
   }
 }
 ```
@@ -105,28 +105,47 @@ $ vim Dockerfile
 Your Dockerfile should look like this:
 
 ```Dockerfile
+# syntax=docker/dockerfile:1
+
 # Node runtime version
-FROM node:8
+FROM node:24-alpine
+
+# Set NODE_ENV to production so npm and the app itself skip dev-only
+# dependencies and behavior (e.g. Express serves leaner error pages)
+ENV NODE_ENV=production
 
 # The api directory inside of the docker image
 WORKDIR /app
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied to the docker image
-COPY package*.json ./
+# A wildcard is used to ensure both package.json AND package-lock.json are
+# copied to the docker image. --chown=node:node makes the non-root "node"
+# user (see below) the owner of these files from the start
+COPY --chown=node:node package*.json ./
 
-# Copy the project to the docker image
-COPY . .
+# Install the API dependencies with NPM using the lockfile for reproducible
+# builds. --omit=dev skips devDependencies since this is a production image
+RUN npm ci --omit=dev && npm cache clean --force
 
-# Install the API dependencies with NPM
-RUN npm install
+# Copy the project to the docker image, keeping the same ownership
+COPY --chown=node:node index.js ./
+
+# Run the container as the unprivileged "node" user (built into the
+# official image) instead of root, reducing the blast radius of a
+# container compromise
+USER node
 
 # Informe to the docker, the door let's use
 EXPOSE 8080
 
+# Let Docker (and orchestrators like Kubernetes/ECS) know whether the app
+# is actually serving requests, not just whether the process is alive
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://127.0.0.1:8080', (res) => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"
+
 CMD ["npm", "start"]
 ```
 
-[TL; DR Docker atrributes](https://github.com/mmalaquiasdev/quickstart-dockerizing-a-node-api/blob/master/docker-attributes.md)
+[TL; DR Docker attributes](https://github.com/malaquiasdev/quickstart-dockerizing-a-node-api/blob/master/docker-attributes.md)
 
 ## Building your image
 
@@ -141,7 +160,7 @@ $ docker build -t <your username>/node-hello-world .
 Running your image with `-d` runs the container in `detached` mode, leaving the container running in the background. The `-p` flag redirects a public port to a private port inside the container.
 
 ```shell
-$ docker run -p 8080:8080 -d <your username>/node-web-app
+$ docker run -p 8080:8080 -d <your username>/node-hello-world
 ```
 
 ## Test
@@ -155,7 +174,7 @@ http://localhost:8080
 Or use the curl application inside the terminal.
 
 ```shell
-$ curl -i localhost:49160
+$ curl -i localhost:8080
 ```
 
 You need to see a simple Hello world message.
@@ -177,14 +196,20 @@ Write the content above:
 
 ```
 node_modules
-npm-debug.log
+npm-debug.log*
+.git
+.gitignore
+Dockerfile
+.dockerignore
+*.md
+.env*
 ```
 
-This will prevent your local modules and debug logs from being copied into your Docker image.
+This will prevent your local modules and debug logs, as well as your `.git` history, the `Dockerfile`/`.dockerignore` themselves, markdown docs, and any `.env` files (which may contain secrets), from being copied into your Docker image.
 
 ## References
 
-- [Dockerfile reference](https://docs.docker.com/engine/reference/builder/#dockerignore-file)
+- [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)
 - [Dockerizing a Node.js web app](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/)
 - [Trying Docker for the First Time 📖 Many Learnings!](https://www.youtube.com/watch?v=2tvbkCW4OIY)
 
@@ -194,7 +219,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Contributors
 
-See also the list of [contributors](https://github.com/mmalaquiasdev/study-dockerizing-a-node-api/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/malaquiasdev/quickstart-dockerizing-a-node-api/graphs/contributors) who participated in this project.
 
 ## License
 
