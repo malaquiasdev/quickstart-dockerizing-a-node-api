@@ -45,7 +45,7 @@ Now we have a **package.json**:
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mmalaquiasdev/study-dockerizing-a-node-api.git"
+    "url": "git+https://github.com/malaquiasdev/study-dockerizing-a-node-api.git"
   },
   "keywords": [
     "Docker",
@@ -56,9 +56,9 @@ Now we have a **package.json**:
   "author": "Mateus Malaquias",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mmalaquiasdev/study-dockerizing-a-node-api/issues"
+    "url": "https://github.com/malaquiasdev/study-dockerizing-a-node-api/issues"
   },
-  "homepage": "https://github.com/mmalaquiasdev/study-dockerizing-a-node-api#readme",
+  "homepage": "https://github.com/malaquiasdev/study-dockerizing-a-node-api#readme",
   "dependencies": {
     "express": "^4.16.4"
   }
@@ -106,7 +106,7 @@ Your Dockerfile should look like this:
 
 ```Dockerfile
 # Node runtime version
-FROM node:8
+FROM node:24-alpine
 
 # The api directory inside of the docker image
 WORKDIR /app
@@ -114,11 +114,11 @@ WORKDIR /app
 # A wildcard is used to ensure both package.json AND package-lock.json are copied to the docker image
 COPY package*.json ./
 
+# Install the API dependencies with NPM using the lockfile for reproducible builds
+RUN npm ci
+
 # Copy the project to the docker image
 COPY . .
-
-# Install the API dependencies with NPM
-RUN npm install
 
 # Informe to the docker, the door let's use
 EXPOSE 8080
@@ -126,7 +126,7 @@ EXPOSE 8080
 CMD ["npm", "start"]
 ```
 
-[TL; DR Docker atrributes](https://github.com/mmalaquiasdev/quickstart-dockerizing-a-node-api/blob/master/docker-attributes.md)
+[TL; DR Docker atrributes](https://github.com/malaquiasdev/quickstart-dockerizing-a-node-api/blob/master/docker-attributes.md)
 
 ## Building your image
 
@@ -194,7 +194,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 ## Contributors
 
-See also the list of [contributors](https://github.com/mmalaquiasdev/study-dockerizing-a-node-api/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/malaquiasdev/study-dockerizing-a-node-api/graphs/contributors) who participated in this project.
 
 ## License
 
